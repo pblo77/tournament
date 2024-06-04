@@ -1,0 +1,158 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "version": "1.0.0",
+      "title": "Gestión de Torneos de Esports API",
+      "description": "API para la gestión de torneos de esports"
+    },
+    "basePath": "/",
+    "schemes": [
+      "http"
+    ],
+    "paths": {
+      "/torneos": {
+        "get": {
+          "summary": "Obtener todos los torneos",
+          "responses": {
+            "200": {
+              "description": "Lista de todos los torneos"
+            }
+          }
+        },
+        "post": {
+          "summary": "Crear un nuevo torneo",
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "description": "Detalles del torneo a crear",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/TorneoInput"
+              }
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Torneo creado correctamente"
+            }
+          }
+        }
+      },
+      "/torneos/{id}": {
+        "get": {
+          "summary": "Obtener detalles de un torneo",
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "description": "ID del torneo a obtener detalles",
+              "required": true,
+              "type": "integer",
+              "format": "int64"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Detalles del torneo"
+            }
+          }
+        },
+        "put": {
+          "summary": "Actualizar información de un torneo",
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "description": "ID del torneo a actualizar",
+              "required": true,
+              "type": "integer",
+              "format": "int64"
+            },
+            {
+              "in": "body",
+              "name": "body",
+              "description": "Nuevos detalles del torneo",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/TorneoInput"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Torneo actualizado correctamente"
+            }
+          }
+        },
+        "delete": {
+          "summary": "Eliminar un torneo",
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "description": "ID del torneo a eliminar",
+              "required": true,
+              "type": "integer",
+              "format": "int64"
+            }
+          ],
+          "responses": {
+            "204": {
+              "description": "Torneo eliminado correctamente"
+            }
+          }
+        }
+      },
+      "/torneos/{id}/participantes": {
+        "post": {
+          "summary": "Agregar participantes a un torneo",
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "description": "ID del torneo al que agregar participantes",
+              "required": true,
+              "type": "integer",
+              "format": "int64"
+            },
+            {
+              "in": "body",
+              "name": "body",
+              "description": "Lista de IDs de jugadores a agregar",
+              "required": true,
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Participantes agregados correctamente"
+            }
+          }
+        }
+      }
+    },
+    "definitions": {
+      "TorneoInput": {
+        "type": "object",
+        "properties": {
+          "nombre": {
+            "type": "string",
+            "description": "Nombre del torneo"
+          },
+          "fecha": {
+            "type": "string",
+            "format": "date",
+            "description": "Fecha del torneo"
+          }
+        }
+      }
+    }
+  }
+  
